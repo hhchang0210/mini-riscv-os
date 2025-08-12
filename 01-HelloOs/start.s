@@ -2,6 +2,7 @@
 
 .global _start
 
+//跟 riscv-operating-system-moo 大同小異
 _start:
     csrr a0, mhartid                # 讀取核心代號
     bnez a0, park                   # 若不是 0 號核心，跳到 park 停止
