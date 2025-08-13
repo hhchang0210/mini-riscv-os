@@ -18,13 +18,14 @@ int task_create(void (*task)(void))
 
 // switch to task[i]
 void task_go(int i) {
-	ctx_now = &ctx_tasks[i];
-	sys_switch(&ctx_os, &ctx_tasks[i]);
+	ctx_now = &ctx_tasks[i]; // ctx_now 指向要執行的函數, 假設是 task 1
+	sys_switch(&ctx_os, &ctx_tasks[i]); // 把現有 os_main 的 registers 資訊都存到 ctx_os, 然後執行 ctx_tasks (假設是 task 1)
 }
 
 // switch back to os
 void task_os() {
-	struct context *ctx = ctx_now;
-	ctx_now = &ctx_os;
-	sys_switch(ctx, &ctx_os);
+	struct context *ctx = ctx_now; // ctx 指向現在在執行的函數部份
+	ctx_now = &ctx_os; // ctx_now 指向本來  os_main 的資訊, ctx_os 存有 os_main 的資訊, 沒有這一行應該也沒有關系
+	sys_switch(ctx, &ctx_os); // 把現在在執行 (假設是 task 1) 的 registers 都存起來, 這樣下次才能再回到執行的狀態. 然後執行ctx_os 也就是 os_main 的資訊
+	
 }

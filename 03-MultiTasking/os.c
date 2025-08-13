@@ -15,6 +15,7 @@ int os_main(void)
 	
 	int current_task = 0;
 	while (1) {
+		// 這裡要呈現 os_main -> task 1 -> os_main -> task2 -> os_main -> task 1 ...
 		lib_puts("OS: Activate next task\n");
 		task_go(current_task);
 		lib_puts("OS: Back to OS\n");
