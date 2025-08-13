@@ -16,9 +16,10 @@ void user_task0(void)
 int os_main(void)
 {
 	lib_puts("OS start\n");
+	// 把下一個要執行的函數位置跟 stack 設定好
 	ctx_task.ra = (reg_t) user_task0;
 	ctx_task.sp = (reg_t) &task0_stack[STACK_SIZE-1];
-	sys_switch(&ctx_os, &ctx_task);
+	sys_switch(&ctx_os, &ctx_task); 
 	return 0;
 }
 
