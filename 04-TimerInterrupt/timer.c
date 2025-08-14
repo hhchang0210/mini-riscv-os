@@ -2,6 +2,7 @@
 
 #define interval 10000000 // cycles; about 1 second in qemu.
 
+// 跟 riscv-operating-system-mooc 差不多
 void timer_init()
 {
   // each CPU has a separate source of timer interrupts.
@@ -24,6 +25,8 @@ static int timer_count = 0;
 
 reg_t timer_handler(reg_t epc, reg_t cause)
 {
+  //紀錄要回去的 address
+  //這個 fuction 要盡量不改變 register, 因為在 sys_timer 並沒有儲存舊的 register 資料
   reg_t return_pc = epc;
   // disable machine-mode timer interrupts.
   w_mie(~((~r_mie()) | (1 << 7)));
