@@ -7,6 +7,9 @@ void lock_init(lock_t *lock)
 
 void lock_acquire(lock_t *lock)
 {
+  /*
+  這裡的 spin lock 實作比riscv-operating-system-mooc 是用真正的 spin lock, riscv-operating-system-mooc 只是透過暫時關閉中斷來保證一段程式碼的執行是不可分割的
+  */
   for (;;)
   {
     if (!atomic_swap(lock))
