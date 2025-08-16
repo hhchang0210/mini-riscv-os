@@ -15,7 +15,7 @@ void timer_init()
 
   *(reg_t *)CLINT_MTIMECMP(id) = *(reg_t *)CLINT_MTIME + interval;
   /*
-  這裡是這個專案關鍵的地方, 雖然我不懂為何要在這裡準備 timervec 的資訊？
+  這裡是這個專案關鍵的地方, 雖然我不懂為何要在這裡準備 timervec 的資訊？在其他地方也沒有用到這個資料！
   但我猜想最重要的是讓 mscratch  可以指向一塊記憶體。(w_mscratch((reg_t)scratch))
   當程式跳到 
   trap_vector:
