@@ -34,10 +34,12 @@ reg_t trap_handler(reg_t epc, reg_t cause)
       break;
     case 7:
       lib_puts("timer interruption!\n");
+      // 把 w_mie(~((~r_mie()) | (1 << 7))); w_mie(r_mie() | MIE_MTIE); 給註解掉好像也沒有影響
       // disable machine-mode timer interrupts.
       w_mie(~((~r_mie()) | (1 << 7)));
       timer_handler();
-      return_pc = (reg_t)&os_kernel;
+      return_pc = (reg_t)&os_kernel; // 把 return_pc 指向 os_kernel 的位置, 這樣等一下執行時就會跳回去 kernel
+                                     // 要是沒有寫這個, return_PC 就會指向 task0, 就會一直跑 task0
       // enable machine-mode timer interrupts.
       w_mie(r_mie() | MIE_MTIE);
       break;

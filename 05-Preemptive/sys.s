@@ -136,7 +136,7 @@ trap_vector:
 	call	trap_handler
 
 	# trap_handler will return the return address via a0.
-	csrw	mepc, a0
+	csrw	mepc, a0 // 從 trap.c 回傳的 return_pc 指向的位置
 
 	# load context(registers).
 	csrr	t6, mscratch
