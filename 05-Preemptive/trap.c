@@ -35,6 +35,7 @@ reg_t trap_handler(reg_t epc, reg_t cause)
     case 7:
       lib_puts("timer interruption!\n");
       // 把 w_mie(~((~r_mie()) | (1 << 7))); w_mie(r_mie() | MIE_MTIE); 給註解掉好像也沒有影響
+      // EN 帶你寫個作業系統, p4-42 有寫到關閉動作是多餘的, 預設就會不執行其他 interrupt.
       // disable machine-mode timer interrupts.
       w_mie(~((~r_mie()) | (1 << 7)));
       timer_handler();
